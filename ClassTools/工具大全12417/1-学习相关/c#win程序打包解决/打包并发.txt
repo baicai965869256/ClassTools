@@ -1,0 +1,75 @@
+
+窗体内属性设置
+
+StartPosition :CenterScreen在屏幕中心显示
+
+TopMost:True置顶显示
+
+ShowInTaskbar:False不在任务栏显示
+
+FormBorderStyle:None不显示窗体边框和标题栏
+
+TransparencyKey:Control颜色为Control的部分透明
+
+BackColor:Control窗体背景颜色设为Control
+-----------------------------------------------------------------------------------------------------
+
+
+安装NuGet程序安装包Costura.Fody（本人使用VS2017,不可安装最新版）3.3即可！！
+
+bin  目录下 FodyWeavers.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<Weavers xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="FodyWeavers.xsd">
+  <Costura />
+</Weavers>
+
+----------------------------------------------------------------------------------------------------
+Parallel类提供了数据和任务的并行性；
+
+//Parallel.ForEach启动的线程数量取决于您拥有的内核数量以及已经忙碌的内核数量.
+Parallel.ForEach(listI, x => Dosome("Exec:" + x));
+
+
+Paraller.For()方法类似于C#的for循环语句，也是多次执行一个任务。
+使用Paraller.For()方法，可以并行运行迭代，迭代的顺序没有定义。在For()方法中，前两个参数是固定的，
+这两个参数定义了循环的开头和结束。
+首先描述它的第一个方法For(int,int,Action<int>)，前面两个参数代表循环的开头和介绍，
+第三个参数是个委托，整数参数是循环的迭代次数，该参数被传递给委托引用的方法。
+Paraller.For()方法的返回类型是ParallelLoopResult结构，
+它提供了循环是否结束的信息和最低迭代的索引（返回一个表示从中调用 Break 语句的最低迭代的整数）。
+
+//多次执行一个任务。使用Paraller.For()方法，可以并行运行迭代
+ParallelLoopResult result = Parallel.For(0, 10, i =>
+    {
+        Console.WriteLine("迭代次數：{0},任務ID:{1},線程ID:{2}", i, Task.CurrentId, Thread.CurrentThread.ManagedThreadId);
+        Thread.Sleep(10);
+    });
+
+
+
+         // 11 9 9 8
+                    /*    Parallel.ForEach(imageMap.Keys, tmp =>
+                        {
+                             weizhi = firstMaps[tmp];
+                            value = imageMap[tmp];
+                            // 图片写入 excel
+                            inputImage(weizhi + 1, pics, value, sheet, tmp);           
+                        });*/
+
+                    //并行
+                    //List<string> imageMapKeys = new List<string>(imageMap.Keys);
+                    /*  Parallel.For(0, hangNUm, i0 =>
+                      {
+                          //imageMapKeys
+                          imageKEY=imageMapKeys[i0];
+                          weizhi = firstMaps[imageKEY];
+                          // 图片写入 excel
+
+                          inputImage(weizhi + 1, pics,imageMap[imageKEY], sheet, imageKEY);
+                      });*/
+
+----------------------------------------------------------------------------------------------------
+#region xxx
+#endregion
+
